@@ -1,0 +1,26 @@
+.ChannelPhoto {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  background-color: #252329;
+  
+  position: relative;
+  margin-right: 1rem;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  div {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+  }
+}

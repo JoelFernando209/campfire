@@ -1,0 +1,16 @@
+.ChannelItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.3rem;
+  width: 90%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  
+  .Title {
+    color: #BDBDBD;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
