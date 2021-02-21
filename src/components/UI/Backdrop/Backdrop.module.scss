@@ -1,0 +1,19 @@
+.Backdrop {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(black, .4);
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.Parent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: all .3s;
+}

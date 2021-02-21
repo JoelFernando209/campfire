@@ -1,0 +1,40 @@
+.SignPopup {
+  display: flex;
+  align-items: center;
+  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 70%;
+  height: 25rem;
+  background-color: #252329;
+  color: white;
+  border-radius: 1rem;
+  z-index: 2;
+  box-shadow: .2rem 1rem rgba(black, .6);
+  overflow: hidden;
+}
+
+.Buttons {
+  margin: 5rem 0;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    margin: 1rem 0;
+    width: 90%;
+  }
+}
+
+.ImageContainer {
+  background-color: white;
+  width: 60%;
+  height: 100%;
+  margin-left: auto;
+  clip-path: polygon(40% 0, 100% 0%, 100% 100%, 0% 100%);
+  overflow: hidden;
+}

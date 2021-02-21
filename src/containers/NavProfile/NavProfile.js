@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
-
-import Logo from '../../assets/logo.png';
+import { connect } from 'react-redux';
 
 import classes from './NavProfile.module.scss';
 
 import NavConfig from './NavConfig/NavConfig';
 
-const NavProfile = ({ name }) => {
+const NavProfile = ({ user: { name, urlProfile } }) => {
   const [ configStatus, setConfigStatus ] = useState();
   
   const toggleConfig = () => {
@@ -17,7 +16,7 @@ const NavProfile = ({ name }) => {
   return (
     <div className={classes.NavProfile}>
       <div className={classes.ProfileImgContainer}>
-        <img src={Logo} alt='' className={classes.ProfileImg}/>
+        <img src={urlProfile} alt='' className={classes.ProfileImg}/>
       </div>
       
       <div className={classes.ProfileName}>{name}</div>
@@ -29,4 +28,8 @@ const NavProfile = ({ name }) => {
   )
 };
 
-export default NavProfile;
+const mapStateToProps = state => ({
+  user: state.user.user
+});
+
+export default connect(mapStateToProps)(NavProfile);

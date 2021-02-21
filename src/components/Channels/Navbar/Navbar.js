@@ -13,7 +13,7 @@ const Navbar = () => (
     <AddChannel />
     <SearchBox />
     <ChannelsList />
-    <NavProfile name='Joel Test' />
+    <NavProfile />
   </div>
 );
 
