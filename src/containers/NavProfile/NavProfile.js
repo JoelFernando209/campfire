@@ -15,9 +15,9 @@ const NavProfile = ({ user: { name, urlProfile } }) => {
   
   return (
     <div className={classes.NavProfile}>
-      <div className={classes.ProfileImgContainer}>
+      { urlProfile && <div className={classes.ProfileImgContainer}>
         <img src={urlProfile} alt='' className={classes.ProfileImg}/>
-      </div>
+      </div>}
       
       <div className={classes.ProfileName}>{name}</div>
       

@@ -1,0 +1,15 @@
+.Input {
+  width: 100%;
+  padding: 1.3rem;
+  background-color: #3C393F;
+  font-size: inherit;
+  border: none;
+  border-radius: 1.5rem;
+  transition: all .3s;
+  color: darken(white, 25%);
+  
+  &:focus {
+    outline: none;
+    background-color: darken(#3C393F, 5%);
+  }
+}
