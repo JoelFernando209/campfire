@@ -16,8 +16,11 @@ import { setStateMethods } from '../../../utils/style.utils';
 const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
   const [ errorSign, setErrorSign ] = useState('');
   const [ addChannelState, setAddChannelState ] = useState(false);
-  const [ categoryValue, setCategoryValue ] = useState('');
   const [ errorPopup, setErrorPopup ] = useState('');
+  
+  const [ categoryValue, setCategoryValue ] = useState('');
+  const [ descValue, setDescValue ] = useState('');
+  const [ nameValue, setNameValue ] = useState('');
   
   useEffect(() => {
     onCheckAuthAndPopup();
@@ -25,6 +28,14 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
   }, []);
   
   const addChannelMethods = setStateMethods(setAddChannelState);
+  
+  const changeDescValue = event => {
+    setDescValue(event.target.value);
+  }
+  
+  const changeNameValue = event => {
+    setNameValue(event.target.value);
+  }
   
   return (
     <div className={classes.Channels}>
@@ -36,6 +47,10 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
         desactivate={addChannelMethods.desactivate}
         setCategoryValue={setCategoryValue}
         categoryValue={categoryValue}
+        descValue={descValue}
+        changeDescValue={changeDescValue}
+        nameValue={nameValue}
+        changeNameValue={changeNameValue}
         errorPopup={errorPopup}
         setErrorPopup={setErrorPopup}
       />

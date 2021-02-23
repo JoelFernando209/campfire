@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import ChannelItem from './ChannelItem/ChannelItem';
 
 import classes from './ChannelsList.module.scss';
 
-const ChannelsList = () => {
+import * as actions from '../../../../store/actions/index';
+
+const ChannelsList = ({ channelList, onGetChannels }) => {
+  
+  useEffect(() => {
+    onGetChannels();
+  }, [])
+  
+  const channelsItems = channelList.map(channel => (
+    <ChannelItem key={channel.id} nameChannel={channel.nameChannel} />
+  ))
   
   return (
     <div className={classes.ChannelsList}>
-      <ChannelItem nameChannel='test' />
-      <ChannelItem nameChannel='test epicO' />
-      <ChannelItem nameChannel='test epicO' />
+      {channelsItems}
     </div>
   )
 };
 
-export default ChannelsList;
+const mapStateToProps = state => ({
+  channelList: state.channels.channels
+})
+
+const mapDispatchToProps = dispatch => ({
+  onGetChannels: () => dispatch(actions.getChannelsDB())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelsList);

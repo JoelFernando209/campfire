@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import classes from './AddChannelPopup.module.scss';
 
@@ -8,44 +9,48 @@ import Input from '../../UI/Input/Input';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import Button from '../../UI/Button/Button';
 
-import { valueIsInArr, hasDuplicates } from '../../../utils/array.utils';
+import { validateCategories, validateInput } from '../../../utils/validation.utils';
 
 import AddChannelCategory from './AddChannelCategory/AddChannelCategory';
 
-const AddChannelPopup = ({ status, desactivate, setCategoryValue, categoryValue, errorPopup, setErrorPopup }) => {
-      
+import * as actions from '../../../store/actions/index';
+
+const AddChannelPopup = ({
+  status,
+  desactivate,
+  setCategoryValue,
+  categoryValue,
+  descValue,
+  changeDescValue,
+  nameValue,
+  changeNameValue,
+  errorPopup,
+  setErrorPopup,
+  onSaveNewChannel
+}) => {
+  
   const sortedCategories = [ ...categoriesOptions ];
   
   sortedCategories.sort();
-      
+  
   const onSubmitCheckCategory = () => {
-    const categoryArr = categoryValue.trim().split(' ');
+    const areCategoriesValid = validateCategories(categoryValue, setErrorPopup, sortedCategories);
+    const isDescValid = validateInput('description', descValue, setErrorPopup, 20, 400);
+    const isNameValid = validateInput('name', nameValue, setErrorPopup, 5, 30);
     
-    const isAnyCategoryInvalid = categoryArr.some(category => {
-      if(category.charAt(0) !== '#' || category.length <= 1) {
-        setErrorPopup(`${category} is invalid`);
-        
-       return true;
-      }
-      
-      if(!valueIsInArr(category.substring(1), sortedCategories)) {
-        setErrorPopup(`${category} is not included in the options`)
-        
-        return true;
-      }
-      
-      return false;
-    })
-    
-    const doCategoryArrHasDuplicates = hasDuplicates(categoryArr);
-    
-    if(doCategoryArrHasDuplicates) {
-      setErrorPopup('The categories are repeated');
-    }
-    
-    if(!isAnyCategoryInvalid && !doCategoryArrHasDuplicates && categoryArr.length) {
-      console.log('SUCCESS')
+    if(areCategoriesValid && isDescValid && isNameValid) {
       setErrorPopup('');
+      const categoryArr = categoryValue.trim().split(' ');
+      
+      const channelInfo = {
+        nameChannel: nameValue,
+        descChannel: descValue,
+        categoriesArr: categoryArr
+      }
+      
+      onSaveNewChannel(channelInfo, () => {
+        desactivate();
+      });
     }
   };
   
@@ -54,9 +59,9 @@ const AddChannelPopup = ({ status, desactivate, setCategoryValue, categoryValue,
       <div className={classes.AddChannelPopup}>
         <h3 className={classes.Title}>New Channel</h3>
         
-        <Input typeInput='input' type='text' placeholder='Channel name' />
+        <Input typeInput='input' type='text' placeholder='Channel name' change={changeNameValue} />
         
-        <Input typeInput='textarea' placeholder='Channel description' />
+        <Input typeInput='textarea' placeholder='Channel description' change={changeDescValue} />
         
         <AddChannelCategory setCategoryValue={setCategoryValue} categoryValue={categoryValue} sortedCategories={sortedCategories} />
         
@@ -68,4 +73,8 @@ const AddChannelPopup = ({ status, desactivate, setCategoryValue, categoryValue,
   )
 };
 
-export default AddChannelPopup;
+const mapDispatchToProps = dispatch => ({
+  onSaveNewChannel: (channelInfo, endFunc) => dispatch(actions.addNewChannelDB(channelInfo, endFunc))
+});
+
+export default connect(null, mapDispatchToProps)(AddChannelPopup);

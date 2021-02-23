@@ -13,9 +13,7 @@ const AddChannelCategory = ({ setCategoryValue, categoryValue, sortedCategories 
   ))
   
   const onCategoriesChange = value => {
-    if(value.trim().length !== 0) {
-      setCategoryValue(value);
-    }
+    setCategoryValue(value);
   }
   
   return (

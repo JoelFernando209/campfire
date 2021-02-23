@@ -9,6 +9,8 @@ export const checkIfUserAuth = endFunc => {
   })
 }
 
+export const getUidSync = () => auth.currentUser.uid;
+
 export const signWithProvider = nameProvider => {
   const provider = new firebase.auth[`${nameProvider}AuthProvider`]();
   
