@@ -41,3 +41,8 @@ export const getChannelsDB = () => {
       })
   }
 }
+
+export const setCurrentChannel = channel => ({
+  type: actionTypes.SET_CURRENT_CHANNEL,
+  channel
+});

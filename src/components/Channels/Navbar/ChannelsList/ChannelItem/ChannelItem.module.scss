@@ -12,5 +12,9 @@
     color: #BDBDBD;
     text-transform: uppercase;
     font-weight: 600;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

@@ -8,13 +8,16 @@ import SearchBox from './SearchBox/SearchBox';
 import ChannelsList from './ChannelsList/ChannelsList';
 import NavProfile from '../../../containers/NavProfile/NavProfile';
 
-const Navbar = ({ onAddChannelClick }) => (
-  <div className={classes.Navbar}>
-    <AddChannel clicked={onAddChannelClick} />
-    <SearchBox />
-    <ChannelsList />
-    <NavProfile />
-  </div>
-);
+const Navbar = ({ onAddChannelClick, isSearchFocus, searchFocusMethods, filterSearch, filteredChannels }) => {
+  
+  return (
+    <div className={classes.Navbar}>
+      <AddChannel clicked={onAddChannelClick} />
+      <SearchBox focus={searchFocusMethods.activate} blur={searchFocusMethods.desactivate} change={filterSearch} />
+      <ChannelsList isSearchFocus={isSearchFocus} filteredChannels={filteredChannels} />
+      <NavProfile />
+    </div>
+  )
+};
 
 export default Navbar;

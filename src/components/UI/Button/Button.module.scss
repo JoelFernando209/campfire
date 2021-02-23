@@ -46,6 +46,18 @@
   }
 }
 
+.blue {
+  background-color: #2F80ED;
+  
+  &:hover {
+    background-color: darken(#2F80ED, 5%);
+  }
+  
+  &:active {
+    background-color: darken(#2F80ED, 15%);
+  }
+}
+
 .orange {
   background-color: #F9A109;
   color: white;

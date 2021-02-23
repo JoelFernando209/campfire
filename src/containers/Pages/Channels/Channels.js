@@ -13,7 +13,7 @@ import * as actions from '../../../store/actions/index';
 import { checkIfUserAuth } from '../../../firebase/firebaseUtils/firebase.auth';
 import { setStateMethods } from '../../../utils/style.utils';
 
-const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
+const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels }) => {
   const [ errorSign, setErrorSign ] = useState('');
   const [ addChannelState, setAddChannelState ] = useState(false);
   const [ errorPopup, setErrorPopup ] = useState('');
@@ -22,12 +22,16 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
   const [ descValue, setDescValue ] = useState('');
   const [ nameValue, setNameValue ] = useState('');
   
+  const [ isSearchFocus, setIsSearchFocus ] = useState(false);
+  const [ filteredChannels, setFilteredChannels ] = useState([]);
+  
   useEffect(() => {
     onCheckAuthAndPopup();
     onGetUserData();
   }, []);
   
   const addChannelMethods = setStateMethods(setAddChannelState);
+  const searchFocusMethods = setStateMethods(setIsSearchFocus);
   
   const changeDescValue = event => {
     setDescValue(event.target.value);
@@ -37,9 +41,27 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
     setNameValue(event.target.value);
   }
   
+  const filterSearch = event => {
+    const searchQuery = event.target.value;
+    
+    if(searchQuery.trim().length) {
+      setFilteredChannels( channels.filter(channel =>
+        channel.nameChannel.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    } else {
+      setFilteredChannels(channels);
+    }
+  }
+  
   return (
     <div className={classes.Channels}>
-      <Navbar onAddChannelClick={addChannelMethods.activate} />
+      <Navbar
+        onAddChannelClick={addChannelMethods.activate}
+        isSearchFocus={isSearchFocus}
+        searchFocusMethods={searchFocusMethods}
+        filteredChannels={filteredChannels}
+        filterSearch={filterSearch}
+      />
       <Chat />
       <SignPopup errorSign={errorSign} setErrorSign={setErrorSign} />
       <AddChannelPopup
@@ -58,9 +80,13 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData }) => {
   )
 };
 
+const mapStateToProps = state => ({
+  channels: state.channels.channels
+});
+
 const mapDispatchToProps = dispatch => ({
   onCheckAuthAndPopup: () => dispatch(actions.declareAuthAndSignPopup()),
   onGetUserData: () => dispatch(actions.getUserData())
 });
 
-export default connect(null, mapDispatchToProps)(Channels);
+export default connect(mapStateToProps, mapDispatchToProps)(Channels);

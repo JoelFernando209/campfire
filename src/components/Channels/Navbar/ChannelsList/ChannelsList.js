@@ -2,20 +2,28 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import ChannelItem from './ChannelItem/ChannelItem';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 import classes from './ChannelsList.module.scss';
 
 import * as actions from '../../../../store/actions/index';
 
-const ChannelsList = ({ channelList, onGetChannels }) => {
-  
+const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFocus, onSetCurrentChannel }) => {
   useEffect(() => {
     onGetChannels();
-  }, [])
+  }, []);
   
-  const channelsItems = channelList.map(channel => (
-    <ChannelItem key={channel.id} nameChannel={channel.nameChannel} />
-  ))
+  let channelsItems = <Spinner />;
+  
+  if(isSearchFocus && (filteredChannels.length || channelList.length)) {
+    channelsItems = filteredChannels.map(channel => (
+      <ChannelItem key={channel.id} nameChannel={channel.nameChannel} clicked={onSetCurrentChannel.bind(null, channel)} />
+    ))
+  } else {
+    channelsItems = channelList.map(channel => (
+      <ChannelItem key={channel.id} nameChannel={channel.nameChannel} clicked={onSetCurrentChannel.bind(null, channel)} />
+    ))
+  }
   
   return (
     <div className={classes.ChannelsList}>
@@ -29,7 +37,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetChannels: () => dispatch(actions.getChannelsDB())
+  onGetChannels: () => dispatch(actions.getChannelsDB()),
+  onSetCurrentChannel: channel => dispatch(actions.setCurrentChannel(channel))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelsList);
