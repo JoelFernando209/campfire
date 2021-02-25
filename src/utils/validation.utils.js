@@ -1,6 +1,6 @@
 import { valueIsInArr, hasDuplicates } from './array.utils';
 
-const isInputNotEmpty = input => input.trim().length;
+export const isInputNotEmpty = input => input.trim().length;
 
 export const isAnyCategoryInvalid = (categoryArr, allCategories, setError) => {
   return categoryArr.some(category => {

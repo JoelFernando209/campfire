@@ -15,13 +15,23 @@ const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFo
   
   let channelsItems = <Spinner />;
   
-  if(isSearchFocus && (filteredChannels.length || channelList.length)) {
+  if(isSearchFocus && filteredChannels.length) {
     channelsItems = filteredChannels.map(channel => (
-      <ChannelItem key={channel.id} nameChannel={channel.nameChannel} clicked={onSetCurrentChannel.bind(null, channel)} />
+      <ChannelItem
+        key={channel.id}
+        channelId={channel.id}
+        nameChannel={channel.nameChannel}
+        clicked={onSetCurrentChannel.bind(null, channel)}
+      />
     ))
-  } else {
+  } else if(channelList.length > 0) {
     channelsItems = channelList.map(channel => (
-      <ChannelItem key={channel.id} nameChannel={channel.nameChannel} clicked={onSetCurrentChannel.bind(null, channel)} />
+      <ChannelItem
+        key={channel.id}
+        channelId={channel.id}
+        nameChannel={channel.nameChannel}
+        clicked={onSetCurrentChannel.bind(null, channel)}
+      />
     ))
   }
   

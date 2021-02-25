@@ -1,28 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import classes from './Chat.module.scss';
 
-import ChatHeader from './ChatHeader/ChatHeader';
-import ChatContent from './ChatContent/ChatContent';
+import ChatChannel from './ChatChannel/ChatChannel';
+import NoChannel from './NoChannel/NoChannel';
 
-import Spinner from '../../UI/Spinner/Spinner';
-
-const Chat = ({ currentChannel }) => {
+const Chat = ({ match }) => {
+  let currentContent = <NoChannel />
   
-  const nameChannel = Object.keys(currentChannel).length > 0 ? currentChannel.nameChannel : ''
+  if(match.params.channelId) {
+    currentContent = <ChatChannel idChannel={match.params.channelId} />;
+  }
   
   return (
     <div className={classes.Chat}>
-      <ChatHeader nameChannel={nameChannel} />
-      
-      <ChatContent />
+      {currentContent}
     </div>
   )
 };
 
-const mapStateToProps = state => ({
-  currentChannel: state.channels.currentChannel
-});
-
-export default connect(mapStateToProps)(Chat);
+export default withRouter(Chat);

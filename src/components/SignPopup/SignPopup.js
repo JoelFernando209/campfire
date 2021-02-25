@@ -73,4 +73,4 @@ const mapDispatchToProps = dispatch => ({
   onSetUser: user => dispatch(actions.setUserInfo(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(SignPopup));

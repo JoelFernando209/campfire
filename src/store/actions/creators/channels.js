@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes';
 
-import { saveNewChannel, getChannels } from '../../../firebase/firebaseUtils/firestore/channels.firestore';
-import { formatDocsToData } from '../../../firebase/firebaseUtils/firestore/utils.firestore';
+import { saveNewChannel, getChannels, getChannel } from '../../../firebase/firebaseUtils/firestore/channels.firestore';
+import { formatDocsToData, formatDocToData } from '../../../firebase/firebaseUtils/firestore/utils.firestore';
 
 export const addNewChannel = channelInfo => ({
   type: actionTypes.ADD_NEW_CHANNEL,
@@ -46,3 +46,17 @@ export const setCurrentChannel = channel => ({
   type: actionTypes.SET_CURRENT_CHANNEL,
   channel
 });
+
+export const getCurrentChannel = idChannel => {
+  return dispatch => {
+    getChannel(idChannel)
+      .then(channel => {
+        const channelData = formatDocToData(channel);
+        
+        dispatch(setCurrentChannel(channelData))
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+  };
+}

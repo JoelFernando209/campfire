@@ -19,3 +19,9 @@ export const saveNewChannel = (nameChannel, descChannel, categoriesArr) => {
       console.log(err.message);
     })
 };
+
+export const getChannel = idChannel => {
+  return db.collection('channels')
+    .doc(idChannel)
+    .get();
+}

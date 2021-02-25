@@ -1,0 +1,19 @@
+.NoChannel {
+  grid-row: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+  img {
+    width: 20rem;
+    height: 20rem;
+  }
+  
+  div {
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: rgba(#ccc, .5);
+  }
+}

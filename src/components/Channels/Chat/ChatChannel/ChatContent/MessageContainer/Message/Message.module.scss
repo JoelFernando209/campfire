@@ -1,0 +1,55 @@
+.Message {
+  display: flex;
+  align-items: flex-start;
+  margin: 2rem 0;
+  animation: uploadMessage 1s ease;
+  
+  .ProfileImg {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1rem;
+    object-fit: cover;
+    margin-right: 1.5rem;
+  }
+  
+  .Content {
+    
+    .InfoAuthor {
+      margin-bottom: .1rem;
+      
+      & > * {
+        display: inline-block;
+      }
+      
+      .NameAuthor {
+        margin-right: 2rem;
+        color: #828282;
+        font-weight: 600;
+        font-size: 1.7rem;
+      }
+      
+      .Date {
+        color: #828282;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .MessageContent {
+      color: #E0E0E0;
+      font-size: 1.6rem;
+      word-break: break-word;
+    }
+  }
+}
+
+@keyframes uploadMessage {
+  0% {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

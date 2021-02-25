@@ -8,5 +8,6 @@ export {
 export {
   addNewChannelDB,
   getChannelsDB,
-  setCurrentChannel
+  setCurrentChannel,
+  getCurrentChannel
 } from './creators/channels';
