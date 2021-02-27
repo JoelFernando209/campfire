@@ -2,7 +2,8 @@ export {
   declareAuthAndSignPopup,
   setSignState,
   setUserInfo,
-  getUserData
+  getUserData,
+  setCategories
 } from './creators/user';
 
 export {

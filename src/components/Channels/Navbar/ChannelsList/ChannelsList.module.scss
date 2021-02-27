@@ -1,4 +1,12 @@
 .ChannelsList {
   position: relative;
   flex: 1;
+  overflow: scroll;
+  
+  .AdviceChannels {
+    color: rgba(#ccc, .4);
+    text-align: center;
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
 }

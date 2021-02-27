@@ -13,7 +13,7 @@ const Navbar = ({ onAddChannelClick, isSearchFocus, searchFocusMethods, filterSe
   return (
     <div className={classes.Navbar}>
       <AddChannel clicked={onAddChannelClick} />
-      <SearchBox focus={searchFocusMethods.activate} blur={searchFocusMethods.desactivate} change={filterSearch} />
+      <SearchBox focus={searchFocusMethods.activate} change={filterSearch} />
       <ChannelsList isSearchFocus={isSearchFocus} filteredChannels={filteredChannels} />
       <NavProfile />
     </div>

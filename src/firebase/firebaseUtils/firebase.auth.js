@@ -9,6 +9,14 @@ export const checkIfUserAuth = endFunc => {
   })
 }
 
+export const runFuncWhenUserLoaded = cb => {
+ const unsubscribe = auth.onAuthStateChanged(user => {
+    cb(user);
+    
+    unsubscribe();
+  })
+}
+
 export const getUidSync = () => auth.currentUser.uid;
 
 export const signWithProvider = nameProvider => {

@@ -7,7 +7,8 @@ const initialState = {
     name: '',
     uid: '',
     urlProfile: ''
-  }
+  },
+  categories: []
 };
 
 const setAuth = (state, action) => {
@@ -35,8 +36,17 @@ const setUserInfo = (state, { user }) => {
   }
 }
 
+const setCategories = (state, action) => {
+  return {
+    ...state,
+    categories: action.categories
+  }
+}
+
 const reducer = (state = initialState, action) => {
   switch(action.type) {
+    case actionTypes.SET_CATEGORIES: return setCategories(state, action)
+    
     case actionTypes.SET_USER_INFO: return setUserInfo(state, action);
     
     case actionTypes.SET_AUTH: return setAuth(state, action);

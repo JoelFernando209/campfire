@@ -35,7 +35,9 @@ const categoriesOptions = [
   'mongodb',
   'mern',
   'java',
-  'php'
+  'php',
+  'objective-c',
+  'firebase'
 ];
 
 export default categoriesOptions;

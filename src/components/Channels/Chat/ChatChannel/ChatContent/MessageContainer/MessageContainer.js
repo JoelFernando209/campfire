@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import Message from './Message/Message';
 
-const MessageContainer = ({ messages }) => {
+let firstTime = true;
+
+const MessageContainer = React.forwardRef((props, ref) => {
+  useEffect(() => {
+    firstTime = true;
+  }, [props.idChannel])
   
-  const messagesElements = messages.map(message => (
+  useEffect(() => {
+    if(firstTime && props.messages.length > 0) {
+      props.goToBottomOfContainer();
+      
+      firstTime = false;
+    }
+  }, [props.messages])
+  
+  const messagesElements = props.messages.map(message => (
     <Message
       key={message.id}
       srcProfile={message.urlProfile}
       nameAuthor={message.authorName}
-      dateMessage='27 de Abril'
+      dateMessage={message.date.toDate()}
     >
       {message.message}
     </Message>
   ))
   
   return (
-    <div style={{ flex: '1', overflow: 'auto' }} data-simplebar>
+    <div style={{ flex: '1', overflow: 'auto' }} ref={ref}>
       {messagesElements}
     </div>
   )
-}
+})
 
 export default MessageContainer;

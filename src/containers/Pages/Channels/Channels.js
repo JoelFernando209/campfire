@@ -7,20 +7,26 @@ import Navbar from '../../../components/Channels/Navbar/Navbar';
 import Chat from '../../../components/Channels/Chat/Chat';
 import SignPopup from '../../../components/SignPopup/SignPopup';
 import AddChannelPopup from '../../../components/Channels/AddChannelPopup/AddChannelPopup';
+import CategoriesPopup from '../../../components/Channels/CategoriesPopup/CategoriesPopup';
 
 import * as actions from '../../../store/actions/index';
 
 import { checkIfUserAuth } from '../../../firebase/firebaseUtils/firebase.auth';
 import { setStateMethods } from '../../../utils/style.utils';
+import { getCurrentCategories } from '../../../firebase/firebaseUtils/firestore/categoriesUsers.firestore';
 
-const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels }) => {
+const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categories, onSetCategories }) => {
   const [ errorSign, setErrorSign ] = useState('');
   const [ addChannelState, setAddChannelState ] = useState(false);
+  const [ categoriesState, setCategoriesState ] = useState(false);
   const [ errorPopup, setErrorPopup ] = useState('');
   
   const [ categoryValue, setCategoryValue ] = useState('');
   const [ descValue, setDescValue ] = useState('');
   const [ nameValue, setNameValue ] = useState('');
+  
+  const [ categoryPopupValue, setCategoryPopupValue ] = useState('');
+  const [ errorPopupCategories, setErrorPopupCategories ] = useState('');
   
   const [ isSearchFocus, setIsSearchFocus ] = useState(false);
   const [ filteredChannels, setFilteredChannels ] = useState([]);
@@ -30,7 +36,27 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels }) => {
     onGetUserData();
   }, []);
   
+  useEffect(() => {
+    if(auth) {
+      getCurrentCategories(onSetCategories);
+    }
+  }, [auth])
+  
+  useEffect(() => {
+    if(localStorage.getItem('haveCategories')) {
+      setCategoriesState(false);
+    } else if(auth && categories.length === 0) {
+      setCategoriesState(true);
+    } else if(auth) {
+      setCategoriesState(false);
+      localStorage.setItem('haveCategories', true);
+    } else {
+      setCategoriesState(false);
+    }
+  }, [auth, categories])
+  
   const addChannelMethods = setStateMethods(setAddChannelState);
+  const categoriesMethods = setStateMethods(setCategoriesState);
   const searchFocusMethods = setStateMethods(setIsSearchFocus);
   
   const changeDescValue = event => {
@@ -49,7 +75,7 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels }) => {
         channel.nameChannel.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     } else {
-      setFilteredChannels(channels);
+      setFilteredChannels([]);
     }
   }
   
@@ -76,17 +102,28 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels }) => {
         errorPopup={errorPopup}
         setErrorPopup={setErrorPopup}
       />
+      <CategoriesPopup
+        status={categoriesState}
+        desactivate={categoriesMethods.desactivate}
+        categoryValue={categoryPopupValue}
+        setCategoryValue={setCategoryPopupValue}
+        errorPopup={errorPopupCategories}
+        setErrorPopup={setErrorPopupCategories}
+      />
     </div>
   )
 };
 
 const mapStateToProps = state => ({
-  channels: state.channels.channels
+  channels: state.channels.channels,
+  auth: state.user.auth,
+  categories: state.user.categories
 });
 
 const mapDispatchToProps = dispatch => ({
   onCheckAuthAndPopup: () => dispatch(actions.declareAuthAndSignPopup()),
-  onGetUserData: () => dispatch(actions.getUserData())
+  onGetUserData: () => dispatch(actions.getUserData()),
+  onSetCategories: categories => dispatch(actions.setCategories(categories))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Channels);

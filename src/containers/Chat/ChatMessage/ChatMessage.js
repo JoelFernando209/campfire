@@ -12,9 +12,10 @@ import { MdSend } from 'react-icons/md';
 import { HiEmojiHappy } from 'react-icons/hi';
 
 import { isInputNotEmpty } from '../../../utils/validation.utils';
+import { divideMessageInMultiple } from '../../../utils/array.utils';
 import { saveNewMessage } from '../../../firebase/firebaseUtils/firestore/messages.firestore';
 
-const ChatMessage = ({ idChannel, user }) => {
+const ChatMessage = ({ idChannel, user, goToBottomOfContainer }) => {
   const [ pickerState, setPickerState ] = useState(false);
   const [ messageValue, setMessageValue ] = useState('');
    
@@ -37,8 +38,19 @@ const ChatMessage = ({ idChannel, user }) => {
   }
   
   const sendMessageHandler = () => {
-    if(isInputNotEmpty(messageValue)) {
-      saveNewMessage(idChannel, user.name, user.urlProfile, user.uid, messageValue);
+    if(isInputNotEmpty(messageValue) && messageValue.length < 2000) {
+      if(messageValue.length >= 400) {
+        const multipleMessages = divideMessageInMultiple(messageValue);
+        
+        multipleMessages.forEach(message => {
+          saveNewMessage(idChannel, user.name, user.urlProfile, user.uid, message)
+            .then(goToBottomOfContainer)
+        })
+      } else {
+        saveNewMessage(idChannel, user.name, user.urlProfile, user.uid, messageValue)
+          .then(goToBottomOfContainer)
+      }
+      
       setMessageValue('');
     }
   };

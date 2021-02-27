@@ -16,7 +16,7 @@ export const saveNewChannel = (nameChannel, descChannel, categoriesArr) => {
       uid: getUidSync()
     })
     .catch(err => {
-      console.log(err.message);
+      console.log(err);
     })
 };
 

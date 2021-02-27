@@ -43,7 +43,7 @@ const SignPopup = ({ state, onDesactivate, errorSign, setErrorSign, onSetUser })
   }
   
   return (
-    <Backdrop show={state} desactivate={onDesactivate}>
+    <Backdrop show={state}>
       <div className={classes.SignPopup}>
         <div className={classes.Buttons}>
           <h3 style={{ color: 'white', textAlign: 'center' }}>Connect with Tech Friends & Companies</h3>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import classes from './ChatContent.module.scss';
 
@@ -10,11 +10,13 @@ import { formatDocsToData } from '../../../../../firebase/firebaseUtils/firestor
 
 import { addNewMessage, modifyMessage, removeMessage } from '../../../../../utils/immutable.utils';
 
-const ChatContent = ({ idChannel }) => {
+const ChatContent = ({ idChannel, auth }) => {
   const [ messages, setMessages ] = useState([]);
   
-  useEffect(() => {
-    getMessagesFromChannel(idChannel, snapshotMessages => {
+  const containerRef = useRef(null);
+  
+  const getMessages = channelId => {
+    return getMessagesFromChannel(channelId, snapshotMessages => {
       if(snapshotMessages.length > 0) {
         snapshotMessages.docChanges().forEach(change => {
           const currentMessage = change.doc.data();
@@ -45,13 +47,33 @@ const ChatContent = ({ idChannel }) => {
     }, err => {
       console.log(err.message);
     })
-  }, []);
+  }
+  
+  useEffect(() => {
+    setMessages([]);
+    const unsubscribeMessages = getMessages(idChannel);
+    
+    return () => {
+      unsubscribeMessages();
+    };
+  }, [idChannel])
+  
+  const goToBottomOfContainer = () => {
+    const containerElement = containerRef.current;
+      
+    containerElement.scrollTop = containerElement.scrollHeight - containerElement.clientHeight;
+  };
   
   return (
     <div className={classes.ChatContent}>
-      <MessageContainer messages={messages} />
+      <MessageContainer
+        messages={messages}
+        idChannel={idChannel}
+        goToBottomOfContainer={goToBottomOfContainer}
+        ref={containerRef}
+      />
       
-      <ChatMessage idChannel={idChannel} />
+      <ChatMessage idChannel={idChannel} goToBottomOfContainer={goToBottomOfContainer} />
     </div>
   )
 };

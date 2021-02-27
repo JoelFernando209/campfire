@@ -8,14 +8,17 @@ import classes from './ChannelsList.module.scss';
 
 import * as actions from '../../../../store/actions/index';
 
-const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFocus, onSetCurrentChannel }) => {
+import { filterChannelsBasedOnCategories } from '../../../../utils/immutable.utils'
+
+const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFocus, onSetCurrentChannel, categories }) => {
   useEffect(() => {
     onGetChannels();
   }, []);
   
   let channelsItems = <Spinner />;
+  let adviceChannels = '';
   
-  if(isSearchFocus && filteredChannels.length) {
+  if(isSearchFocus && filteredChannels.length > 0) {
     channelsItems = filteredChannels.map(channel => (
       <ChannelItem
         key={channel.id}
@@ -25,7 +28,21 @@ const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFo
       />
     ))
   } else if(channelList.length > 0) {
-    channelsItems = channelList.map(channel => (
+    let channelsFilterCategories = channelList.slice(0, 7);
+    
+    if(categories.length > 0) {
+      channelsFilterCategories = filterChannelsBasedOnCategories(categories, channelList);
+      
+      if(channelsFilterCategories.length <= 3) {
+        adviceChannels = 'No much channels over here. Try to search some ones!'
+      }
+      
+      if(channelsFilterCategories.length === 0) {
+        channelsFilterCategories = channelList.slice(0, 7);
+      }
+    }
+    
+    channelsItems = channelsFilterCategories.map(channel => (
       <ChannelItem
         key={channel.id}
         channelId={channel.id}
@@ -38,12 +55,15 @@ const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFo
   return (
     <div className={classes.ChannelsList}>
       {channelsItems}
+      
+      { adviceChannels && <div className={classes.AdviceChannels}>{adviceChannels}</div>}
     </div>
   )
 };
 
 const mapStateToProps = state => ({
-  channelList: state.channels.channels
+  channelList: state.channels.channels,
+  categories: state.user.categories
 })
 
 const mapDispatchToProps = dispatch => ({

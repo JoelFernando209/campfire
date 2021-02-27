@@ -23,3 +23,17 @@ export const removeMessage = (arrMessages, messageId) => {
   
   return newArrMessages.splice(indexMessage, 1);
 }
+
+export const filterChannelsBasedOnCategories = (categoriesUser, categoriesList) => {
+  const filterCategories = categoriesList.filter(({ categoriesArr }) => {
+    
+    return categoriesArr.some(categoryArr => {
+      
+      return categoriesUser.some(categoryUser => categoryArr === categoryUser)
+      
+    })
+    
+  });
+  
+  return filterCategories;
+};

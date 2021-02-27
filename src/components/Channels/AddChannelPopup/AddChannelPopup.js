@@ -11,7 +11,7 @@ import Button from '../../UI/Button/Button';
 
 import { validateCategories, validateInput } from '../../../utils/validation.utils';
 
-import AddChannelCategory from './AddChannelCategory/AddChannelCategory';
+import AddChannelCategory from '../AddChannelCategory/AddChannelCategory';
 
 import * as actions from '../../../store/actions/index';
 
@@ -36,7 +36,7 @@ const AddChannelPopup = ({
   const onSubmitCheckCategory = () => {
     const areCategoriesValid = validateCategories(categoryValue, setErrorPopup, sortedCategories);
     const isDescValid = validateInput('description', descValue, setErrorPopup, 20, 400);
-    const isNameValid = validateInput('name', nameValue, setErrorPopup, 5, 30);
+    const isNameValid = validateInput('name', nameValue, setErrorPopup, 5, 12);
     
     if(areCategoriesValid && isDescValid && isNameValid) {
       setErrorPopup('');

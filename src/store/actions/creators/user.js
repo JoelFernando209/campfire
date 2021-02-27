@@ -41,3 +41,8 @@ export const getUserData = () => {
     })
   }
 }
+
+export const setCategories = categories => ({
+  type: actionTypes.SET_CATEGORIES,
+  categories
+})
