@@ -1,8 +1,14 @@
+@import '../../../../../scss/mixins.scss';
+
 .AddChannel {
   display: flex;
   align-items: center;
   padding: 1.2rem 4rem;
   box-shadow: 0 .5rem .5rem black;
+  
+  @include respond(phone) {
+    padding: 1.2rem 2rem;
+  }
 }
 
 .Title {
@@ -11,4 +17,18 @@
   font-size: 1.6rem;
   color: #BDBDBD;
   text-transform: uppercase;
+  user-select: none;
+}
+
+.Burger {
+  width: 2.3rem;
+  height: 2.3rem;
+  margin-right: 2rem;
+  fill: #fff;
+  cursor: pointer;
+  display: none;
+  
+  @include respond(phone) {
+    display: block;
+  }
 }

@@ -1,3 +1,5 @@
+@import '../../../scss/mixins.scss';
+
 .Chat {
   width: 80%;
   height: 100vh;
@@ -5,4 +7,12 @@
   
   display: grid;
   grid-template-rows: 4.909rem 1fr;
+  
+  @include respond(tablet) {
+    width: 75%;
+  }
+  
+  @include respond(phone) {
+    width: 100%;
+  }
 }

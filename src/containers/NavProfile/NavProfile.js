@@ -13,13 +13,19 @@ const NavProfile = ({ user: { name, urlProfile } }) => {
     setConfigStatus(!configStatus);
   };
   
+  let completeName = name;
+  
+  if(name.split('').length >= 13) {
+    completeName = name.substring(0, 13) + '...';
+  }
+  
   return (
     <div className={classes.NavProfile}>
       { urlProfile && <div className={classes.ProfileImgContainer}>
         <img src={urlProfile} alt='' className={classes.ProfileImg}/>
       </div>}
       
-      <div className={classes.ProfileName}>{name}</div>
+      <div className={classes.ProfileName} title={name}>{completeName}</div>
       
       <RiArrowDropDownLine color='white' onClick={toggleConfig}/>
       

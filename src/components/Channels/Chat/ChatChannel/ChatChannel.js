@@ -6,7 +6,7 @@ import ChatContent from './ChatContent/ChatContent';
 
 import * as actions from '../../../../store/actions/index';
 
-const ChatChannel = ({ currentChannel, onGetCurrentChannel, idChannel }) => {
+const ChatChannel = ({ currentChannel, onGetCurrentChannel, idChannel, phoneStatusActivate }) => {
   useEffect(() => {
     const isCurrentChannelEmpty = !Object.keys(currentChannel).length;
     
@@ -19,7 +19,7 @@ const ChatChannel = ({ currentChannel, onGetCurrentChannel, idChannel }) => {
   
   return (
     <>
-      <ChatHeader nameChannel={nameChannel} />
+      <ChatHeader nameChannel={nameChannel} clickedBurger={phoneStatusActivate} />
         
       <ChatContent idChannel={idChannel} />
     </>

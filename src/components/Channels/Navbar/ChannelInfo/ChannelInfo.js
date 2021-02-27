@@ -26,15 +26,23 @@ const ChannelInfo = ({ status, desactivate, currentChahnel }) => {
     <div className={classes.ChannelInfo} style={channelStyles}>
       <ChannelInfoHeader clicked={desactivate} />
       
-      <div className={classes.ChannelName}>{currentChahnel && currentChahnel.nameChannel}</div>
+      {
+        currentChahnel && status ?
+          <>
+            <div className={classes.ChannelName}>{currentChahnel.nameChannel}</div>
+            
+            <div className={classes.ChannelDesc}>{currentChahnel.descChannel}</div>
+            
+            <h3 className={classes.MembersTitle}>Members</h3>
+            
+            <MembersList />
+               
+            <NavProfile />
+          </>
+        :
+          null
+      }
       
-      <div className={classes.ChannelDesc}>{currentChahnel && currentChahnel.descChannel}</div>
-      
-      <h3 className={classes.MembersTitle}>Members</h3>
-      
-      <MembersList />
-      
-      <NavProfile />
     </div>
   )
 };

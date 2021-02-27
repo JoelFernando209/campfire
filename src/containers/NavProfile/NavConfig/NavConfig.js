@@ -26,12 +26,6 @@ const NavConfig = ({ status, toggleConfig }) => {
   
   return (
     <div className={classes.NavConfig} style={navStyles}>
-      <div className={classes.ConfigItem}>
-        <HiUserCircle color='white' />
-        
-        My Profile
-      </div>
-      
       <div className={[classes.ConfigItem, classes.Logout].join(' ')} style={{ color: '#EB5757' }} onClick={onSignOutHandler}>
         <BiLogIn color='#EB5757' />
       

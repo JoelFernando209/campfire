@@ -1,4 +1,4 @@
-@import './scss/antd-globals.scss';
+@import './scss/mixins.scss';
 
 *,
 *::before,
@@ -10,6 +10,10 @@
 
 html {
   font-size: 62.5%;
+  
+  @include respond(big-desktop) {
+    font-size: 66%;
+  }
 }
 
 input, textarea, select {

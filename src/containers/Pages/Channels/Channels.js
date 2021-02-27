@@ -33,6 +33,8 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categori
   
   const [ channelInfoStatus, setChannelInfoStatus ] = useState(false);
   
+  const [ phoneStatusNavbar, setPhoneStatusNavbar ] = useState(false);
+  
   useEffect(() => {
     onCheckAuthAndPopup();
     onGetUserData();
@@ -61,6 +63,7 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categori
   const categoriesMethods = setStateMethods(setCategoriesState);
   const searchFocusMethods = setStateMethods(setIsSearchFocus);
   const channelInfoMethods = setStateMethods(setChannelInfoStatus);
+  const phoneStatusMethods = setStateMethods(setPhoneStatusNavbar);
   
   const changeDescValue = event => {
     setDescValue(event.target.value);
@@ -93,8 +96,10 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categori
         channelInfoStatus={channelInfoStatus}
         activateChannelInfo={channelInfoMethods.activate}
         desactivateChannelInfo={channelInfoMethods.desactivate}
+        phoneStatus={phoneStatusNavbar}
+        desactivatePhoneStatus={phoneStatusMethods.desactivate}
       />
-      <Chat />
+      <Chat phoneStatusActivate={phoneStatusMethods.activate} />
       <SignPopup errorSign={errorSign} setErrorSign={setErrorSign} />
       <AddChannelPopup
         status={addChannelState}

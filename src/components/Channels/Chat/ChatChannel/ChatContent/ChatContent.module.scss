@@ -1,7 +1,13 @@
+@import '../../../../../scss/mixins.scss';
+
 .ChatContent {
   padding: 2.5rem 5rem;
   
   display: flex;
   flex-direction: column;
   overflow: auto;
+  
+  @include respond(sm-phone) {
+    padding: 2.5rem;
+  }
 }

@@ -6,11 +6,11 @@ import classes from './Chat.module.scss';
 import ChatChannel from './ChatChannel/ChatChannel';
 import NoChannel from './NoChannel/NoChannel';
 
-const Chat = ({ match }) => {
+const Chat = ({ match, phoneStatusActivate }) => {
   let currentContent = <NoChannel />
   
   if(match.params.channelId) {
-    currentContent = <ChatChannel idChannel={match.params.channelId} />;
+    currentContent = <ChatChannel idChannel={match.params.channelId} phoneStatusActivate={phoneStatusActivate} />;
   }
   
   return (

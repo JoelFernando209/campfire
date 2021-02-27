@@ -1,0 +1,28 @@
+/*
+  RESPONSIVE BREAKPOINTS:
+  
+  sm-phone: 32.5em             // 520px
+  phone: 46.875em              // 750px
+  tablet: 68.75em              // 1100px
+  big-desktop: 93.75em         // 1500px
+  
+  1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm-phone {
+    @media only screen and (max-width: 32.5em) { @content };
+  }
+  
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 46.875em) { @content };
+  }
+  
+  @if $breakpoint == tablet {
+    @media only screen and (max-width: 68.75em) { @content };
+  }
+  
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 93.75em) { @content };
+  }
+}

@@ -37,7 +37,12 @@ const categoriesOptions = [
   'java',
   'php',
   'objective-c',
-  'firebase'
+  'firebase',
+  'general-frontend',
+  'general-backend',
+  'databases',
+  'performance',
+  'general-gamedev'
 ];
 
 export default categoriesOptions;

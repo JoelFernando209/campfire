@@ -1,3 +1,5 @@
+@import '../../scss/mixins.scss';
+
 .NavProfile {
   display: flex;
   align-items: center;
@@ -14,6 +16,10 @@
     margin-right: 2rem;
     background-color: #252329;
     border-radius: 1rem;
+    
+    @include respond(tablet) {
+      margin-right: 1rem;
+    }
   }
   
   .ProfileImg {
@@ -26,6 +32,10 @@
   .ProfileName {
     font-weight: 600;
     color: #BDBDBD;
+    
+    @include respond(tablet) {
+      font-size: 1.2rem;
+    }
   }
   
   svg {
