@@ -10,5 +10,6 @@ export {
   addNewChannelDB,
   getChannelsDB,
   setCurrentChannel,
-  getCurrentChannel
+  getCurrentChannel,
+  setMembersCurrentChannel
 } from './creators/channels';

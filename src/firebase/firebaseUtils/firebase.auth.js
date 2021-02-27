@@ -17,6 +17,8 @@ export const runFuncWhenUserLoaded = cb => {
   })
 }
 
+export const signOut = () => auth.signOut();
+
 export const getUidSync = () => auth.currentUser.uid;
 
 export const signWithProvider = nameProvider => {

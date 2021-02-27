@@ -23,7 +23,7 @@ const NavProfile = ({ user: { name, urlProfile } }) => {
       
       <RiArrowDropDownLine color='white' onClick={toggleConfig}/>
       
-      <NavConfig status={configStatus} />
+      <NavConfig status={configStatus} toggleConfig={toggleConfig} />
     </div>
   )
 };

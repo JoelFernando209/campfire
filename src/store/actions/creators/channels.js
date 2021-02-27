@@ -47,6 +47,11 @@ export const setCurrentChannel = channel => ({
   channel
 });
 
+export const setMembersCurrentChannel = members => ({
+  type: actionTypes.SET_MEMBERS_CURRENT_CHANNEL,
+  members
+})
+
 export const getCurrentChannel = idChannel => {
   return dispatch => {
     getChannel(idChannel)

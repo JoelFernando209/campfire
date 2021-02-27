@@ -1,0 +1,25 @@
+.ChannelInfoHeader {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 .5rem .5rem black;
+  cursor: pointer;
+  
+  svg {
+    fill: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .Title {
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: white;
+  }
+  
+  &:hover .Title {
+    text-decoration: underline;
+  }
+}
+

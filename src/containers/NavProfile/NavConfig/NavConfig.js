@@ -4,7 +4,9 @@ import { BiLogIn } from 'react-icons/bi';
 
 import classes from './NavConfig.module.scss';
 
-const NavConfig = ({ status }) => {
+import { signOut } from '../../../firebase/firebaseUtils/firebase.auth';
+
+const NavConfig = ({ status, toggleConfig }) => {
   let navStyles = {
     visibility: 'hidden',
     opacity: '0'
@@ -17,6 +19,11 @@ const NavConfig = ({ status }) => {
     };
   };
   
+  const onSignOutHandler = () => {
+    signOut();
+    toggleConfig();
+  };
+  
   return (
     <div className={classes.NavConfig} style={navStyles}>
       <div className={classes.ConfigItem}>
@@ -25,7 +32,7 @@ const NavConfig = ({ status }) => {
         My Profile
       </div>
       
-      <div className={[classes.ConfigItem, classes.Logout].join(' ')} style={{ color: '#EB5757' }}>
+      <div className={[classes.ConfigItem, classes.Logout].join(' ')} style={{ color: '#EB5757' }} onClick={onSignOutHandler}>
         <BiLogIn color='#EB5757' />
       
         Logout

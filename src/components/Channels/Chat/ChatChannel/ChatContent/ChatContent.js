@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './ChatContent.module.scss';
 
@@ -6,17 +7,21 @@ import ChatMessage from '../../../../../containers/Chat/ChatMessage/ChatMessage'
 import MessageContainer from './MessageContainer/MessageContainer';
 
 import { getMessagesFromChannel } from '../../../../../firebase/firebaseUtils/firestore/messages.firestore';
-import { formatDocsToData } from '../../../../../firebase/firebaseUtils/firestore/utils.firestore';
+import { formatDocsToData, setMembersBasedOnMessages } from '../../../../../firebase/firebaseUtils/firestore/utils.firestore';
 
 import { addNewMessage, modifyMessage, removeMessage } from '../../../../../utils/immutable.utils';
 
-const ChatContent = ({ idChannel, auth }) => {
+import * as actions from '../../../../../store/actions/index';
+
+const ChatContent = ({ idChannel, auth, onSetMembers }) => {
   const [ messages, setMessages ] = useState([]);
   
   const containerRef = useRef(null);
   
   const getMessages = channelId => {
     return getMessagesFromChannel(channelId, snapshotMessages => {
+      const messagesData = formatDocsToData(snapshotMessages.docs);
+      
       if(snapshotMessages.length > 0) {
         snapshotMessages.docChanges().forEach(change => {
           const currentMessage = change.doc.data();
@@ -40,10 +45,10 @@ const ChatContent = ({ idChannel, auth }) => {
           }
         })
       } else {
-        const messagesData = formatDocsToData(snapshotMessages.docs);
-        
         setMessages(messagesData);
       }
+      
+      onSetMembers(setMembersBasedOnMessages(messagesData))
     }, err => {
       console.log(err.message);
     })
@@ -55,6 +60,7 @@ const ChatContent = ({ idChannel, auth }) => {
     
     return () => {
       unsubscribeMessages();
+      
     };
   }, [idChannel])
   
@@ -78,4 +84,8 @@ const ChatContent = ({ idChannel, auth }) => {
   )
 };
 
-export default ChatContent;
+const mapDispatchToProps = dispatch => ({
+  onSetMembers: members => dispatch(actions.setMembersCurrentChannel(members))
+});
+
+export default connect(null, mapDispatchToProps)(ChatContent);

@@ -10,7 +10,7 @@ import * as actions from '../../../../store/actions/index';
 
 import { filterChannelsBasedOnCategories } from '../../../../utils/immutable.utils'
 
-const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFocus, onSetCurrentChannel, categories }) => {
+const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFocus, onSetCurrentChannel, categories, activateChannelInfo }) => {
   useEffect(() => {
     onGetChannels();
   }, []);
@@ -18,13 +18,19 @@ const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFo
   let channelsItems = <Spinner />;
   let adviceChannels = '';
   
+  const onClickChannelItem = channel => {
+    onSetCurrentChannel(channel);
+    
+    activateChannelInfo();
+  };
+  
   if(isSearchFocus && filteredChannels.length > 0) {
     channelsItems = filteredChannels.map(channel => (
       <ChannelItem
         key={channel.id}
         channelId={channel.id}
         nameChannel={channel.nameChannel}
-        clicked={onSetCurrentChannel.bind(null, channel)}
+        clicked={onClickChannelItem.bind(null, channel)}
       />
     ))
   } else if(channelList.length > 0) {
@@ -47,7 +53,7 @@ const ChannelsList = ({ channelList, onGetChannels, filteredChannels, isSearchFo
         key={channel.id}
         channelId={channel.id}
         nameChannel={channel.nameChannel}
-        clicked={onSetCurrentChannel.bind(null, channel)}
+        clicked={onClickChannelItem.bind(null, channel)}
       />
     ))
   }

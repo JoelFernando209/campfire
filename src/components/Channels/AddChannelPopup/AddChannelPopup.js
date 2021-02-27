@@ -10,6 +10,7 @@ import Backdrop from '../../UI/Backdrop/Backdrop';
 import Button from '../../UI/Button/Button';
 
 import { validateCategories, validateInput } from '../../../utils/validation.utils';
+import { doChannelNameAlreadyExists } from '../../../firebase/firebaseUtils/firestore/channels.firestore';
 
 import AddChannelCategory from '../AddChannelCategory/AddChannelCategory';
 
@@ -34,24 +35,30 @@ const AddChannelPopup = ({
   sortedCategories.sort();
   
   const onSubmitCheckCategory = () => {
-    const areCategoriesValid = validateCategories(categoryValue, setErrorPopup, sortedCategories);
-    const isDescValid = validateInput('description', descValue, setErrorPopup, 20, 400);
-    const isNameValid = validateInput('name', nameValue, setErrorPopup, 5, 12);
-    
-    if(areCategoriesValid && isDescValid && isNameValid) {
-      setErrorPopup('');
-      const categoryArr = categoryValue.trim().split(' ');
+    doChannelNameAlreadyExists(nameValue, isNameRepeated => {
       
-      const channelInfo = {
-        nameChannel: nameValue,
-        descChannel: descValue,
-        categoriesArr: categoryArr
+      const areCategoriesValid = validateCategories(categoryValue, setErrorPopup, sortedCategories);
+      const isDescValid = validateInput('description', descValue, setErrorPopup, 20, 400);
+      const isNameValid = validateInput('name', nameValue, setErrorPopup, 5, 12);
+      
+      if(isNameRepeated) {
+        setErrorPopup('Channel name is already taken');
+      } else if(areCategoriesValid && isDescValid && isNameValid && !isNameRepeated) {
+        setErrorPopup('');
+        
+        const categoryArr = categoryValue.trim().split(' ');
+        
+        const channelInfo = {
+          nameChannel: nameValue,
+          descChannel: descValue,
+          categoriesArr: categoryArr
+        }
+        
+        onSaveNewChannel(channelInfo, () => {
+          desactivate();
+        });
       }
-      
-      onSaveNewChannel(channelInfo, () => {
-        desactivate();
-      });
-    }
+    })
   };
   
   return (

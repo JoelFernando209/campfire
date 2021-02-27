@@ -25,3 +25,19 @@ export const getChannel = idChannel => {
     .doc(idChannel)
     .get();
 }
+
+export const doChannelNameAlreadyExists = (name, cb) => {
+  db.collection('channels')
+    .where('nameChannel', '==', name)
+    .get()
+    .then(snapshot => {
+      if(snapshot.docs.length > 0) {
+        cb(true);
+      } else {
+        cb(false);
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+    })
+}

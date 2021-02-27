@@ -31,6 +31,8 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categori
   const [ isSearchFocus, setIsSearchFocus ] = useState(false);
   const [ filteredChannels, setFilteredChannels ] = useState([]);
   
+  const [ channelInfoStatus, setChannelInfoStatus ] = useState(false);
+  
   useEffect(() => {
     onCheckAuthAndPopup();
     onGetUserData();
@@ -58,6 +60,7 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categori
   const addChannelMethods = setStateMethods(setAddChannelState);
   const categoriesMethods = setStateMethods(setCategoriesState);
   const searchFocusMethods = setStateMethods(setIsSearchFocus);
+  const channelInfoMethods = setStateMethods(setChannelInfoStatus);
   
   const changeDescValue = event => {
     setDescValue(event.target.value);
@@ -87,6 +90,9 @@ const Channels = ({ onCheckAuthAndPopup, onGetUserData, channels, auth, categori
         searchFocusMethods={searchFocusMethods}
         filteredChannels={filteredChannels}
         filterSearch={filterSearch}
+        channelInfoStatus={channelInfoStatus}
+        activateChannelInfo={channelInfoMethods.activate}
+        desactivateChannelInfo={channelInfoMethods.desactivate}
       />
       <Chat />
       <SignPopup errorSign={errorSign} setErrorSign={setErrorSign} />
