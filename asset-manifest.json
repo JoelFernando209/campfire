@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/campfire/static/css/main.92c5ffd7.chunk.css",
+    "main.js": "/campfire/static/js/main.98625db5.chunk.js",
+    "runtime-main.js": "/campfire/static/js/runtime-main.beb7a05f.js",
+    "static/css/2.e2c1e795.chunk.css": "/campfire/static/css/2.e2c1e795.chunk.css",
+    "static/js/2.33a96de4.chunk.js": "/campfire/static/js/2.33a96de4.chunk.js",
+    "index.html": "/campfire/index.html",
+    "static/js/2.33a96de4.chunk.js.LICENSE.txt": "/campfire/static/js/2.33a96de4.chunk.js.LICENSE.txt",
+    "static/media/blue-person.e8b88eaa.gif": "/campfire/static/media/blue-person.e8b88eaa.gif",
+    "static/media/brown-person.88be44a8.gif": "/campfire/static/media/brown-person.88be44a8.gif",
+    "static/media/emo-person.4cf6128e.gif": "/campfire/static/media/emo-person.4cf6128e.gif",
+    "static/media/noChannel.adcf01cd.svg": "/campfire/static/media/noChannel.adcf01cd.svg",
+    "static/media/pink-person.9d48aeac.gif": "/campfire/static/media/pink-person.9d48aeac.gif",
+    "static/media/red-person.a5bb40dd.gif": "/campfire/static/media/red-person.a5bb40dd.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.beb7a05f.js",
+    "static/css/2.e2c1e795.chunk.css",
+    "static/js/2.33a96de4.chunk.js",
+    "static/css/main.92c5ffd7.chunk.css",
+    "static/js/main.98625db5.chunk.js"
+  ]
+}
