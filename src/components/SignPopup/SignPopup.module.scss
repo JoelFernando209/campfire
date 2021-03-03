@@ -1,3 +1,5 @@
+@import '../../scss/mixins.scss';
+
 .SignPopup {
   display: flex;
   align-items: center;
@@ -12,9 +14,19 @@
   background-color: #252329;
   color: white;
   border-radius: 1rem;
-  z-index: 2;
+  z-index: 100;
   box-shadow: .2rem 1rem rgba(black, .6);
   overflow: hidden;
+  
+  @include respond(phone) {
+    width: 85%;
+  }
+  
+  @include respond(sm-phone) {
+    flex-direction: column;
+    justify-content: center;
+    height: initial;
+  }
 }
 
 .Buttons {
@@ -28,6 +40,11 @@
     margin: 1rem 0;
     width: 90%;
   }
+  
+  @include respond(sm-phone) {
+    margin: 3rem 0;
+    width: 70%;
+  }
 }
 
 .ImageContainer {
@@ -37,4 +54,9 @@
   margin-left: auto;
   clip-path: polygon(40% 0, 100% 0%, 100% 100%, 0% 100%);
   overflow: hidden;
+  
+  @include respond(sm-phone) {
+    width: 100%;
+    clip-path: initial;
+  }
 }

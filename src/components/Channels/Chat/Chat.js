@@ -7,7 +7,7 @@ import ChatChannel from './ChatChannel/ChatChannel';
 import NoChannel from './NoChannel/NoChannel';
 
 const Chat = ({ match, phoneStatusActivate }) => {
-  let currentContent = <NoChannel />
+  let currentContent = <NoChannel phoneStatusActivate={phoneStatusActivate} />
   
   if(match.params.channelId) {
     currentContent = <ChatChannel idChannel={match.params.channelId} phoneStatusActivate={phoneStatusActivate} />;

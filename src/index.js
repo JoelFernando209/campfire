@@ -12,7 +12,7 @@ import 'emoji-mart/css/emoji-mart.css'
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <React.StrictMode>
         <App />
       </React.StrictMode>

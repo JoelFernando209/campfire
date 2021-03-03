@@ -1,7 +1,23 @@
+@import '../../../scss/mixins.scss';
+
+.CarouselElement {
+  @include respond(phone) {
+    width: 35rem;
+  }
+  
+  @include respond(sm-phone) {
+    width: 100%;
+  }
+}
+
 .PersonImg {
   width: 17rem;
   height: auto;
   position: relative;
   left: 60%;
   transform: translateX(-50%);
+  
+  @include respond(sm-phone) {
+    left: 50%;
+  }
 }

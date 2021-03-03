@@ -42,7 +42,10 @@ const categoriesOptions = [
   'general-backend',
   'databases',
   'performance',
-  'general-gamedev'
+  'general-gamedev',
+  'c++',
+  'unity',
+  'unreal-engine'
 ];
 
 export default categoriesOptions;

@@ -1,3 +1,5 @@
+@import '../../../scss/mixins.scss';
+
 .CategoriesPopup {
   position: fixed;
   top: 50%;
@@ -5,10 +7,23 @@
   transform: translate(-50%, -50%);
   background-color: #120F13;
   padding: 3rem 2rem;
-  z-index: 10;
+  z-index: 100;
   width: 60%;
   
   border-radius: 2rem;
+  
+  @include respond(tablet) {
+    width: 70%;
+  }
+  
+  @include respond(phone) {
+    width: 80%;
+    padding: 2rem 1rem;
+  }
+  
+  @include respond(sm-phone) {
+    width: 95%;
+  }
 
   .Title {
     font-weight: 700;

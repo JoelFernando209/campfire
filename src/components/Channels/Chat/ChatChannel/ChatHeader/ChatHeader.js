@@ -3,11 +3,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 import classes from './ChatHeader.module.scss';
 
-const ChatHeader = ({ nameChannel, clickedBurger }) => {
-  
-  console.log(clickedBurger);
-  
-  return (
+const ChatHeader = ({ nameChannel, clickedBurger }) => (
   <div className={classes.AddChannel}>
     <div onClick={clickedBurger}>
       <GiHamburgerMenu className={classes.Burger} />
@@ -15,6 +11,6 @@ const ChatHeader = ({ nameChannel, clickedBurger }) => {
   
     <div className={classes.Title}>{nameChannel}</div>
   </div>
-)};
+);
 
 export default ChatHeader;
